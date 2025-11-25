@@ -372,15 +372,15 @@ table.lista-alunos input {
 /* ASSINATURAS */
 .assinaturas {
   display: flex;
-  justify-content: space-around; /* mais simétrico que space-between */
+  justify-content: space-around;
   font-size: 0.85rem;
 }
 
 .assinaturas .linha {
   border-top: 1px solid #111827;
-  width: 45%;             /* as duas linhas com mesma largura e espaço central igual */
+  width: 45%;
   text-align: center;
-  padding-top: 40px;      /* espaço para o texto */
+  padding-top: 40px;
   position: relative;
 }
 
@@ -389,19 +389,20 @@ table.lista-alunos input {
   padding-top: 40px;
 }
 
-/* ASSINATURA: deitada em cima da linha, centralizada */
+/* ASSINATURA: deitada, centralizada em cima da linha */
 .img-assinatura {
   position: absolute;
   left: 50%;
   top: 0;
   transform-origin: center center;
-  /* gira 90º e posiciona sobre a linha */
-  transform: translate(-50%, -60%) rotate(-90deg);
-  height: 70px;        /* controla o tamanho da assinatura */
+  /* gira 90° pro lado certo e posiciona sobre a linha */
+  transform: translate(-50%, -55%) rotate(90deg);
+  height: 110px;   /* aumenta o tamanho da assinatura */
   width: auto;
   pointer-events: none;
   display: block;
 }
+
 
 .rodape-data {
   margin-top: 20px;
@@ -429,10 +430,21 @@ table.lista-alunos input {
     display: none !important;
   }
 
-  .pagina-a4 {
-    border-radius: 0;
-    border: none;
-    margin: 0;
-    box-shadow: none;
-  }
+ .pagina-a4 {
+  background: var(--cor-pagina);
+  border-radius: 18px;
+  border: 1px solid rgba(148, 163, 184, 0.55);
+  padding: 22px 26px 26px;
+  margin: 0 auto 30px;
+  /* diminuí um pouco pra garantir que nada passe da borda do A4 */
+  width: 180mm;
+  max-width: 100%;
+  min-height: 260mm;
+  position: relative;
+  color: #111827;
+  box-shadow:
+    0 24px 60px rgba(15, 23, 42, 0.8),
+    0 0 0 1px rgba(148, 163, 184, 0.35);
+}
+
 }

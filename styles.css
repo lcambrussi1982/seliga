@@ -211,7 +211,8 @@ body {
   border: 1px solid rgba(148, 163, 184, 0.55);
   padding: 22px 26px 26px;
   margin: 0 auto 30px;
-  width: 190mm;           /* cabe dentro do A4 com margem do PDF */
+  /* largura menor pra não passar da borda direita do A4 */
+  width: 180mm;
   max-width: 100%;
   min-height: 260mm;
   position: relative;
@@ -372,13 +373,14 @@ table.lista-alunos input {
 /* ASSINATURAS */
 .assinaturas {
   display: flex;
-  justify-content: space-around;
+  justify-content: space-between;
+  gap: 40px;
   font-size: 0.85rem;
 }
 
 .assinaturas .linha {
   border-top: 1px solid #111827;
-  width: 90%;
+  width: 45%;
   text-align: center;
   padding-top: 40px;
   position: relative;
@@ -395,16 +397,13 @@ table.lista-alunos input {
   left: 50%;
   top: 0;
   transform-origin: center center;
-  /* gira pro outro lado e posiciona sobre a linha */
-  transform: translate(-50%, -55%) rotate(-90deg);
-  height: 110px;   /* tamanho da assinatura */
+  /* se ainda parecer invertida, troque 90deg por 270deg */
+  transform: translate(-50%, -60%) rotate(90deg);
+  height: 120px;   /* tamanho da assinatura */
   width: auto;
   pointer-events: none;
   display: block;
 }
-
-
-
 
 .rodape-data {
   margin-top: 20px;
@@ -432,21 +431,11 @@ table.lista-alunos input {
     display: none !important;
   }
 
- .pagina-a4 {
-  background: var(--cor-pagina);
-  border-radius: 18px;
-  border: 1px solid rgba(148, 163, 184, 0.55);
-  padding: 22px 26px 26px;
-  margin: 0 auto 30px;
-  /* diminuí um pouco pra garantir que nada passe da borda do A4 */
-  width: 180mm;
-  max-width: 100%;
-  min-height: 260mm;
-  position: relative;
-  color: #111827;
-  box-shadow:
-    0 24px 60px rgba(15, 23, 42, 0.8),
-    0 0 0 1px rgba(148, 163, 184, 0.35);
-}
-
+  .pagina-a4 {
+    border-radius: 0;
+    border: none;
+    margin: 0 auto;
+    box-shadow: none;
+    width: 180mm;
+  }
 }

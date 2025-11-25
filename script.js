@@ -52,7 +52,7 @@ const dadosTurmas = {
       { nome: "GEOVANA ALVES DOS SANTOS (2ª matrícula)", situacao: "Registro duplicado" }
     ]
   },
-  "RH - Técnico em Administração": {
+  "3º A - Técnico em Administração": {
     curso: "Técnico em Administração",
     componentes: [
       "Recursos Humanos"

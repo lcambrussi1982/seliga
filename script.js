@@ -96,6 +96,7 @@ const opcoesSituacao = [
   "Retido por frequência",
   "Transferido",
   "Trancado / cancelado",
+  "Atestado",
   "Matrícula ajustada (erro de lançamento)",
   "Registro duplicado"
 ];

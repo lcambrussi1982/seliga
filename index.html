@@ -41,6 +41,7 @@
   <!-- CONTEÚDO QUE SERÁ TRANSFORMADO EM PDF -->
   <div id="relatorio" class="pagina-a4">
     <header class="cabecalho">
+      <!-- usa a logo que já está no repo -->
       <img src="logoPnci.jpeg" alt="Colégio Estadual Padre Ponciano" class="cabecalho-logo">
       <div class="cabecalho-texto">
         <strong>Colégio Estadual Padre Ponciano José de Araújo</strong>
@@ -191,12 +192,19 @@
               placeholder="Artigos, apostilas, livros, softwares, trabalhos, apresentações, filmes, Educatron, Mentimeter, Jamboards, Forms, plataformas etc."></textarea>
 
     <div class="assinaturas">
-      <div class="linha">PEDAGOGA</div>
-      <div class="linha">PROFESSOR(A)</div>
+      <div class="linha">
+        PEDAGOGA
+      </div>
+
+      <div class="linha linha-prof">
+        <!-- assinatura com fundo transparente -->
+        <img src="assinatura-prof.png" alt="Assinatura do(a) professor(a)" class="img-assinatura">
+        <span>PROFESSOR(A)</span>
+      </div>
     </div>
 
     <div class="rodape-data">
-      Palmas – PR, _____ de ___________________ de 2025.
+      <!-- preenchido via JS com a data atual -->
     </div>
 
     <div class="nota-explicativa">

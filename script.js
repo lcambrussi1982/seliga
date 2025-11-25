@@ -192,12 +192,11 @@ function atualizarCabecalhoTexto() {
 // Gera o PDF com html2pdf
 function gerarPDF() {
   atualizarCabecalhoTexto();
-  atualizarRodapeData(); // garante que a data está atualizada
+  atualizarRodapeData(); // garante data atual
 
   const turmaNome = turmaSelect.value || "turma";
   const componente = componenteSelect.value || "disciplina";
   const professor = (campoProfessor.value || "professor").replace(/\s+/g, "_");
-
   const hojeISO = new Date().toISOString().slice(0, 10); // AAAA-MM-DD
 
   const opt = {
@@ -248,4 +247,4 @@ document.getElementById('btnAutoSeLiga').addEventListener('click', preencherText
 // ------------------------------
 preencherSelectTurmas();
 atualizarComponentesETabela();
-atualizarRodapeData();  // já coloca a data atual ao carregar
+atualizarRodapeData();   // já coloca a data atual ao carregar

@@ -41,7 +41,7 @@
   <!-- CONTEÚDO QUE SERÁ TRANSFORMADO EM PDF -->
   <div id="relatorio" class="pagina-a4">
     <header class="cabecalho">
-      <!-- usa a logo que já está no repo -->
+      <!-- usa a logo do repositório -->
       <img src="logoPnci.jpeg" alt="Colégio Estadual Padre Ponciano" class="cabecalho-logo">
       <div class="cabecalho-texto">
         <strong>Colégio Estadual Padre Ponciano José de Araújo</strong>
@@ -49,7 +49,7 @@
         Rua Pedro Siqueira Côrtes nº 381, Lagoão – Palmas/PR
         <br><br>
         <span style="font-style: italic; font-size:0.7rem;">
-          “Quando a educação não é libertadora, o sonho do oprimido é ser o opressor.
+          “Quando a educação não é libertadora, o sonho do opresso é ser o opressor.
           Ensinar não é transferir conhecimento, mas criar as possibilidades para a sua própria
           produção ou a sua construção. O educador se eterniza em cada ser que educa.
           A educação é um ato de amor, por isso, um ato de coragem.” – Paulo Freire
@@ -191,25 +191,30 @@
     <textarea id="recursosDidaticos" class="texto-longo"
               placeholder="Artigos, apostilas, livros, softwares, trabalhos, apresentações, filmes, Educatron, Mentimeter, Jamboards, Forms, plataformas etc."></textarea>
 
-    <div class="assinaturas">
-      <div class="linha">
-        PEDAGOGA
+    <!-- QUEBRA PARA A PÁGINA FINAL (assinaturas + data) -->
+    <div class="quebra-pagina"></div>
+
+    <div class="pagina-final">
+      <div class="assinaturas">
+        <div class="linha">
+          PEDAGOGA
+        </div>
+
+        <div class="linha linha-prof">
+          <!-- assinatura com fundo transparente -->
+          <img src="assinatura-prof.png" alt="Assinatura do(a) professor(a)" class="img-assinatura">
+          <span>PROFESSOR(A)</span>
+        </div>
       </div>
 
-      <div class="linha linha-prof">
-        <!-- assinatura com fundo transparente -->
-        <img src="AssinaturaLeandro.png" alt="Assinatura do(a) professor(a)" class="img-assinatura">
-        <span>PROFESSOR(A)</span>
+      <div class="rodape-data">
+        <!-- preenchido via JS com a data atual -->
       </div>
-    </div>
 
-    <div class="rodape-data">
-      <!-- preenchido via JS com a data atual -->
-    </div>
-
-    <div class="nota-explicativa">
-      Observação: este modelo digital foi adaptado do formulário físico de acompanhamento da Hora Atividade do(a) professor(a),
-      mantendo a mesma estrutura para fins de registro pedagógico.
+      <div class="nota-explicativa">
+        Observação: este modelo digital foi adaptado do formulário físico de acompanhamento da Hora Atividade do(a) professor(a),
+        mantendo a mesma estrutura para fins de registro pedagógico.
+      </div>
     </div>
   </div>
 </div>

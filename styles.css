@@ -96,7 +96,7 @@ button:hover {
   border: 1px solid var(--cor-borda);
   padding: 20px 28px;
   margin: 0 auto 30px;
-  /* reduzir para caber dentro da área útil (210mm - 2*10mm de margem do PDF) */
+  /* 190mm pra não estourar a borda direita do A4 (com margem de 10mm do PDF) */
   width: 190mm;
   max-width: 100%;
   min-height: 260mm;
@@ -195,10 +195,24 @@ table.lista-alunos input {
   font-size: 0.8rem;
 }
 
+/* Quebra manual de página antes da parte de assinaturas */
+.quebra-pagina {
+  page-break-before: always;
+}
+
+/* Página final (assinaturas + data + observação) ocupa o A4 inteiro */
+.pagina-final {
+  min-height: 260mm;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+}
+
+/* Assinaturas */
 .assinaturas {
   display: flex;
   justify-content: space-between;
-  margin-top: 40px;
+  margin-top: 40mm;        /* afasta um pouco do topo da página 3 */
   font-size: 0.85rem;
 }
 
@@ -212,15 +226,15 @@ table.lista-alunos input {
 
 /* Linha do professor com assinatura digital */
 .linha-prof {
-  padding-top: 50px; /* espaço extra para a imagem da assinatura */
+  padding-top: 45px; /* espaço extra para a imagem da assinatura */
 }
 
 .img-assinatura {
   position: absolute;
-  top: -40px;          /* sobe a assinatura para ficar sobre a linha */
+  top: -32px;          /* controla o quanto a assinatura sobe */
   left: 50%;
   transform: translateX(-50%);
-  max-height: 60px;    /* ajusta o tamanho da assinatura */
+  max-height: 55px;    /* controla o tamanho da assinatura */
   pointer-events: none;
 }
 
@@ -234,6 +248,7 @@ table.lista-alunos input {
   font-size: 0.75rem;
   margin-top: 8px;
   color: #555;
+  text-align: center;
 }
 
 @media print {

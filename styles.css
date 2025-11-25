@@ -396,7 +396,7 @@ table.lista-alunos input {
   top: 0;
   transform-origin: center center;
   /* gira pro outro lado e posiciona sobre a linha */
-  transform: translate(-50%, -55%) rotate(-90deg);
+  transform: translate(-50%, -55%) rotate(180deg);
   height: 110px;   /* tamanho da assinatura */
   width: auto;
   pointer-events: none;

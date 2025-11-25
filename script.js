@@ -82,6 +82,31 @@ const dadosTurmas = {
 };
 
 // ------------------------------
+// OPÇÕES PADRÃO DOS SELECTS
+// ------------------------------
+const opcoesSituacao = [
+  "",
+  "Regular",
+  "Recuperação",
+  "Se Liga",
+  "PMA",
+  "Transf.",
+  "Registro duplicado",
+  "Exc. erro / ajuste"
+];
+
+const opcoesObservacao = [
+  "",
+  "Bom desempenho",
+  "Participa bem",
+  "Faltas frequentes",
+  "Pouco engajamento",
+  "Dificuldade de conteúdo",
+  "Precisa acompanhamento",
+  "Aluno transferido"
+];
+
+// ------------------------------
 // CACHE DE ELEMENTOS
 // ------------------------------
 const turmaSelect = document.getElementById('turmaSelect');
@@ -131,6 +156,30 @@ function preencherSelectTurmas() {
   });
 }
 
+// cria um select com base numa lista de opções
+function criarSelect(opcoes, valorInicial = "") {
+  const sel = document.createElement('select');
+  sel.className = 'select-tabela';
+
+  opcoes.forEach(op => {
+    const opt = document.createElement('option');
+    opt.value = op;
+    opt.textContent = op;
+    sel.appendChild(opt);
+  });
+
+  // se veio algum valor que não está na lista, adiciona como opção extra
+  if (valorInicial && !opcoes.includes(valorInicial)) {
+    const optExtra = document.createElement('option');
+    optExtra.value = valorInicial;
+    optExtra.textContent = valorInicial;
+    sel.appendChild(optExtra);
+  }
+
+  sel.value = valorInicial || "";
+  return sel;
+}
+
 // Atualiza componentes e tabela de alunos da turma selecionada
 function atualizarComponentesETabela() {
   const turmaNome = turmaSelect.value;
@@ -157,16 +206,15 @@ function atualizarComponentesETabela() {
     const tdNome = document.createElement('td');
     tdNome.textContent = aluno.nome;
 
+    // Situação com SELECT
     const tdSituacao = document.createElement('td');
-    const inputSit = document.createElement('input');
-    inputSit.type = 'text';
-    inputSit.value = aluno.situacao || "";
-    tdSituacao.appendChild(inputSit);
+    const selectSit = criarSelect(opcoesSituacao, aluno.situacao || "");
+    tdSituacao.appendChild(selectSit);
 
+    // Observações / Recuperação com SELECT
     const tdObs = document.createElement('td');
-    const inputObs = document.createElement('input');
-    inputObs.type = 'text';
-    tdObs.appendChild(inputObs);
+    const selectObs = criarSelect(opcoesObservacao, "");
+    tdObs.appendChild(selectObs);
 
     tr.appendChild(tdNum);
     tr.appendChild(tdNome);

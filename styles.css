@@ -439,3 +439,11 @@ table.lista-alunos input {
     width: 180mm;
   }
 }
+table.lista-alunos select.select-tabela {
+  width: 100%;
+  border: none;
+  padding: 2px 3px;
+  font-size: 0.78rem;
+  font-family: inherit;
+  background: transparent;
+}

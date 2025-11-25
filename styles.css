@@ -1,10 +1,18 @@
+/* 60/30/10
+   60%: fundo azul escuro
+   30%: cinza claro / branco
+   10%: amarelo da logo (destaques)
+*/
 :root {
-  --cor-primaria: #f7d94c;
-  --cor-secundaria: #ffffff;
-  --cor-borda: #cccccc;
-  --cor-texto: #222222;
-  --cor-fundo: #f0f0f0;
-  --cor-header: #fafafa;
+  --cor-base-escura: #020617;   /* azul bem escuro */
+  --cor-base-escura-2: #0f172a;
+  --cor-clara: #e5e7eb;
+  --cor-fundo-card: rgba(15, 23, 42, 0.7);
+  --cor-acento: #facc15;
+  --cor-borda: rgba(148, 163, 184, 0.4);
+  --cor-texto: #e5e7eb;
+  --cor-texto-sec: #9ca3af;
+  --cor-pagina: #ffffff;
 }
 
 * {
@@ -13,39 +21,112 @@
 
 body {
   margin: 0;
-  padding: 20px;
-  font-family: Arial, Helvetica, sans-serif;
-  background: var(--cor-fundo);
+  padding: 24px;
+  font-family: "Nunito", system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI",
+    sans-serif;
+  background: radial-gradient(circle at top left, #1d293b 0, #020617 55%, #000 100%);
   color: var(--cor-texto);
+  min-height: 100vh;
 }
 
-.app-container {
-  max-width: 1000px;
+/* camada de brilho */
+.bg-layer {
+  position: fixed;
+  inset: 0;
+  background:
+    radial-gradient(circle at 10% 20%, rgba(56, 189, 248, 0.12) 0, transparent 45%),
+    radial-gradient(circle at 80% 80%, rgba(248, 250, 252, 0.13) 0, transparent 55%);
+  pointer-events: none;
+  z-index: -1;
+}
+
+.app-shell {
+  max-width: 1200px;
   margin: 0 auto;
+  display: flex;
+  flex-direction: column;
+  gap: 18px;
 }
 
-h1 {
-  font-size: 1.4rem;
-  margin: 0 0 10px;
-  text-align: center;
-}
-
-.painel-controle {
-  background: var(--cor-header);
+/* GLASS BASE */
+.glass {
+  background: var(--cor-fundo-card);
+  border-radius: 18px;
   border: 1px solid var(--cor-borda);
-  border-radius: 6px;
-  padding: 12px 16px;
-  margin-bottom: 16px;
+  box-shadow:
+    0 18px 40px rgba(15, 23, 42, 0.6),
+    0 0 0 1px rgba(148, 163, 184, 0.2);
+  backdrop-filter: blur(20px);
+}
+
+/* HEADER TOPO (fora do PDF) */
+.app-header {
+  display: flex;
+  align-items: center;
+  padding: 14px 18px;
+  gap: 16px;
+}
+
+.header-logo-wrap {
+  width: 72px;
+  height: 72px;
+  border-radius: 999px;
+  background: radial-gradient(circle at 20% 20%, #fef9c3, #facc15);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  box-shadow: 0 10px 20px rgba(250, 204, 21, 0.5);
+}
+
+.header-logo {
+  width: 72%;
+  height: auto;
+  border-radius: 999px;
+}
+
+.header-text h1 {
+  margin: 0;
+  font-size: 1.4rem;
+  font-weight: 700;
+  letter-spacing: 0.04em;
+}
+
+.header-text p {
+  margin: 2px 0;
+  font-size: 0.87rem;
+  color: var(--cor-texto-sec);
+}
+
+.header-tag {
+  display: inline-flex;
+  margin-top: 4px;
+  padding: 3px 10px;
+  border-radius: 999px;
+  font-size: 0.7rem;
+  text-transform: uppercase;
+  letter-spacing: .12em;
+  background: rgba(250, 204, 21, 0.15);
+  color: var(--cor-acento);
+}
+
+/* PAINEL DE CONTROLE */
+.painel-controle {
+  padding: 14px 18px 16px;
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
+
+.painel-linha {
   display: flex;
   flex-wrap: wrap;
-  gap: 10px 20px;
-  align-items: flex-end;
+  gap: 10px 14px;
 }
 
 .campo {
   display: flex;
   flex-direction: column;
-  min-width: 180px;
+  min-width: 190px;
   flex: 1;
 }
 
@@ -53,107 +134,181 @@ h1 {
   font-size: 0.8rem;
   margin-bottom: 4px;
   font-weight: 600;
+  color: var(--cor-texto-sec);
 }
 
 .campo input,
-.campo select,
-.campo textarea {
-  padding: 6px 8px;
-  border-radius: 4px;
-  border: 1px solid var(--cor-borda);
+.campo select {
+  padding: 7px 9px;
+  border-radius: 10px;
+  border: 1px solid rgba(148, 163, 184, 0.7);
   font-size: 0.9rem;
+  background: rgba(15, 23, 42, 0.65);
+  color: var(--cor-texto);
+  outline: none;
 }
 
-.campo textarea {
-  resize: vertical;
+.campo input:focus,
+.campo select:focus {
+  border-color: var(--cor-acento);
+  box-shadow: 0 0 0 1px rgba(250, 204, 21, 0.6);
+}
+
+.painel-acoes {
+  align-items: center;
+  justify-content: space-between;
+}
+
+.hint {
+  font-size: 0.76rem;
+  color: var(--cor-texto-sec);
+  max-width: 420px;
 }
 
 .botoes {
   display: flex;
   gap: 8px;
-  align-items: center;
-  margin-left: auto;
 }
 
-button {
+.btn {
   border: none;
-  background: var(--cor-primaria);
-  padding: 8px 14px;
-  border-radius: 4px;
-  font-weight: 600;
+  padding: 7px 14px;
+  border-radius: 999px;
+  font-weight: 700;
+  font-size: 0.85rem;
   cursor: pointer;
-  font-size: 0.9rem;
+  letter-spacing: 0.03em;
+  text-transform: uppercase;
+  transition: transform 0.1s ease, box-shadow 0.1s ease, background 0.2s ease;
 }
 
-button:hover {
-  filter: brightness(0.95);
+.btn.primario {
+  background: linear-gradient(135deg, #facc15, #fbbf24);
+  color: #292524;
+  box-shadow: 0 8px 18px rgba(250, 204, 21, 0.45);
+}
+
+.btn.secundario {
+  background: rgba(15, 23, 42, 0.9);
+  color: var(--cor-texto);
+  border: 1px solid rgba(148, 163, 184, 0.8);
+}
+
+.btn:hover {
+  transform: translateY(-1px);
+  box-shadow: 0 10px 22px rgba(15, 23, 42, 0.7);
+}
+
+.btn:active {
+  transform: translateY(0);
+  box-shadow: none;
 }
 
 /* ÁREA QUE VAI VIRAR PDF */
 .pagina-a4 {
-  background: var(--cor-secundaria);
-  border-radius: 4px;
-  border: 1px solid var(--cor-borda);
-  padding: 20px 28px;
+  background: var(--cor-pagina);
+  border-radius: 18px;
+  border: 1px solid rgba(148, 163, 184, 0.55);
+  padding: 22px 26px 26px;
   margin: 0 auto 30px;
-  /* 190mm pra não estourar a borda direita do A4 (com margem de 10mm do PDF) */
-  width: 190mm;
+  width: 190mm;           /* cabe dentro do A4 com margem do PDF */
   max-width: 100%;
   min-height: 260mm;
   position: relative;
+  color: #111827;
+  box-shadow:
+    0 24px 60px rgba(15, 23, 42, 0.8),
+    0 0 0 1px rgba(148, 163, 184, 0.35);
 }
 
+/* HEADER DO PDF */
 .cabecalho {
   display: flex;
-  gap: 15px;
+  gap: 16px;
   align-items: center;
-  border-bottom: 1px solid var(--cor-borda);
+  border-bottom: 1px solid #e5e7eb;
   padding-bottom: 10px;
   margin-bottom: 10px;
 }
 
 .cabecalho-logo {
-  width: 90px;
+  width: 80px;
 }
 
 .cabecalho-texto {
   flex: 1;
   text-align: center;
   font-size: 0.78rem;
+  color: #374151;
 }
 
 .cabecalho-texto strong {
   display: block;
+  font-weight: 700;
+}
+
+.frase-freire {
+  font-style: italic;
+  font-size: 0.7rem;
+  display: inline-block;
+  margin-top: 4px;
 }
 
 .subtitulo {
   text-align: center;
   font-weight: 700;
-  margin: 6px 0 12px;
+  margin: 4px 0 10px;
   font-size: 0.9rem;
   text-transform: uppercase;
+  letter-spacing: 0.08em;
+}
+
+/* BLOCOS INTERNOS */
+.bloco-info {
+  font-size: 0.83rem;
+  margin-bottom: 10px;
 }
 
 .linha-info {
-  font-size: 0.83rem;
   margin-bottom: 4px;
 }
 
 .linha-info span {
   display: inline-block;
-  margin-right: 10px;
+  margin-right: 14px;
+}
+
+.bloco {
+  border-top: 1px dashed #e5e7eb;
+  padding-top: 8px;
+  margin-top: 8px;
 }
 
 .secao-titulo {
   font-size: 0.9rem;
   font-weight: 700;
-  margin: 12px 0 4px;
+  margin: 6px 0 4px;
   text-transform: uppercase;
+}
+
+.secao-subtitulo {
+  font-size: 0.83rem;
+  font-weight: 600;
+  margin: 2px 0 6px;
+  text-transform: none;
+}
+
+.espacamento-pequeno {
+  margin-top: 5px;
+}
+
+.espacamento-maior {
+  margin-top: 10px;
 }
 
 .checkbox-list label {
   display: block;
-  font-size: 0.82rem;
+  font-size: 0.8rem;
   margin-bottom: 2px;
 }
 
@@ -165,76 +320,81 @@ button:hover {
   width: 100%;
   min-height: 55px;
   padding: 6px 8px;
-  border-radius: 4px;
-  border: 1px solid var(--cor-borda);
-  font-size: 0.86rem;
+  border-radius: 8px;
+  border: 1px solid #d1d5db;
+  font-size: 0.85rem;
   resize: vertical;
+  font-family: inherit;
 }
 
+/* TABELA ALUNOS */
 table.lista-alunos {
   width: 100%;
   border-collapse: collapse;
-  margin-top: 6px;
-  font-size: 0.82rem;
+  margin-top: 5px;
+  font-size: 0.8rem;
 }
 
 table.lista-alunos th,
 table.lista-alunos td {
-  border: 1px solid var(--cor-borda);
+  border: 1px solid #d1d5db;
   padding: 3px 4px;
 }
 
 table.lista-alunos th {
-  background: #f7f7f7;
+  background: #f3f4f6;
+  font-weight: 700;
 }
 
 table.lista-alunos input {
   width: 100%;
   border: none;
   padding: 2px 3px;
-  font-size: 0.8rem;
+  font-size: 0.78rem;
+  font-family: inherit;
 }
 
-/* Quebra manual de página antes da parte de assinaturas */
+/* QUEBRA MANUAL DE PÁGINA */
 .quebra-pagina {
   page-break-before: always;
+  margin-top: 12px;
 }
 
-/* Página final (assinaturas + data + observação) ocupa o A4 inteiro */
+/* PÁGINA FINAL */
 .pagina-final {
-  min-height: 260mm;
+  min-height: 230mm;
   display: flex;
   flex-direction: column;
   justify-content: space-between;
+  padding-top: 40mm;
 }
 
-/* Assinaturas */
+/* ASSINATURAS */
 .assinaturas {
   display: flex;
   justify-content: space-between;
-  margin-top: 40mm;        /* afasta um pouco do topo da página 3 */
   font-size: 0.85rem;
 }
 
 .assinaturas .linha {
-  border-top: 1px solid #000;
+  border-top: 1px solid #111827;
   width: 40%;
   text-align: center;
-  padding-top: 4px;
+  padding-top: 40px;   /* espaço para o texto */
   position: relative;
 }
 
-/* Linha do professor com assinatura digital */
+/* linha do professor com assinatura digital */
 .linha-prof {
-  padding-top: 45px; /* espaço extra para a imagem da assinatura */
+  padding-top: 40px;
 }
 
 .img-assinatura {
   position: absolute;
-  top: -32px;          /* controla o quanto a assinatura sobe */
   left: 50%;
-  transform: translateX(-50%);
-  max-height: 55px;    /* controla o tamanho da assinatura */
+  top: 0;
+  transform: translate(-50%, -95%);  /* sobe a assinatura para ficar em cima da linha */
+  max-height: 55px;
   pointer-events: none;
 }
 
@@ -247,22 +407,27 @@ table.lista-alunos input {
 .nota-explicativa {
   font-size: 0.75rem;
   margin-top: 8px;
-  color: #555;
+  color: #6b7280;
   text-align: center;
 }
 
+/* MODO IMPRESSÃO / PDF */
 @media print {
   body {
-    background: #fff;
+    background: #ffffff;
     padding: 0;
   }
+
+  .bg-layer,
+  .app-header,
   .painel-controle {
-    display: none;
+    display: none !important;
   }
+
   .pagina-a4 {
+    border-radius: 0;
     border: none;
     margin: 0;
-    border-radius: 0;
     box-shadow: none;
   }
 }

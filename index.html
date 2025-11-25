@@ -5,51 +5,76 @@
   <title>Relatório - Colégio Estadual Padre Ponciano</title>
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
+  <!-- Google Font mais suave -->
+  <link href="https://fonts.googleapis.com/css2?family=Nunito:wght@300;400;600;700&display=swap" rel="stylesheet">
+
   <link rel="stylesheet" href="styles.css">
 
   <!-- Lib para gerar PDF -->
   <script src="https://cdnjs.cloudflare.com/ajax/libs/html2pdf.js/0.10.1/html2pdf.bundle.min.js"></script>
 </head>
 <body>
-<div class="app-container">
-  <h1>Relatório da Hora Atividade - Ponciano</h1>
+<div class="bg-layer"></div>
+
+<div class="app-shell">
+  <header class="app-header glass">
+    <div class="header-logo-wrap">
+      <img src="logoPnci.jpeg" alt="Colégio Estadual Padre Ponciano" class="header-logo">
+    </div>
+    <div class="header-text">
+      <h1>Relatório da Hora Atividade</h1>
+      <p>Colégio Estadual Padre Ponciano José de Araújo</p>
+      <span class="header-tag">Registro pedagógico digital</span>
+    </div>
+  </header>
 
   <!-- PAINEL DE CONTROLE (NÃO VAI NO PDF) -->
-  <div class="painel-controle">
-    <div class="campo">
-      <label for="professor">Professor(a)</label>
-      <input type="text" id="professor" placeholder="Seu nome">
+  <section class="painel-controle glass">
+    <div class="painel-linha">
+      <div class="campo">
+        <label for="professor">Professor(a)</label>
+        <input type="text" id="professor" placeholder="Digite seu nome">
+      </div>
+      <div class="campo">
+        <label for="turmaSelect">Turma</label>
+        <select id="turmaSelect"></select>
+      </div>
+      <div class="campo">
+        <label for="componenteSelect">Componente curricular</label>
+        <select id="componenteSelect"></select>
+      </div>
+      <div class="campo">
+        <label for="trimestre">Trimestre / Bimestre</label>
+        <input type="text" id="trimestre" placeholder="Ex.: 2º trimestre de 2025">
+      </div>
     </div>
-    <div class="campo">
-      <label for="turmaSelect">Turma</label>
-      <select id="turmaSelect"></select>
+
+    <div class="painel-linha painel-acoes">
+      <div class="hint">
+        Preencha os campos acima, marque as opções desejadas e gere o PDF para assinatura.
+      </div>
+      <div class="botoes">
+        <button type="button" class="btn secundario" id="btnAutoSeLiga">
+          Preencher texto Se Liga
+        </button>
+        <button type="button" class="btn primario" id="btnGerarPdf">
+          Gerar PDF
+        </button>
+      </div>
     </div>
-    <div class="campo">
-      <label for="componenteSelect">Componente curricular</label>
-      <select id="componenteSelect"></select>
-    </div>
-    <div class="campo">
-      <label for="trimestre">Trimestre / Bimestre</label>
-      <input type="text" id="trimestre" placeholder="Ex.: 2º trimestre de 2025">
-    </div>
-    <div class="botoes">
-      <button type="button" id="btnAutoSeLiga">Preencher texto Se Liga</button>
-      <button type="button" id="btnGerarPdf">Gerar PDF</button>
-    </div>
-  </div>
+  </section>
 
   <!-- CONTEÚDO QUE SERÁ TRANSFORMADO EM PDF -->
-  <div id="relatorio" class="pagina-a4">
+  <main id="relatorio" class="pagina-a4">
     <header class="cabecalho">
-      <!-- usa a logo do repositório -->
       <img src="logoPnci.jpeg" alt="Colégio Estadual Padre Ponciano" class="cabecalho-logo">
       <div class="cabecalho-texto">
         <strong>Colégio Estadual Padre Ponciano José de Araújo</strong>
         Ensino Fundamental e Médio<br>
         Rua Pedro Siqueira Côrtes nº 381, Lagoão – Palmas/PR
         <br><br>
-        <span style="font-style: italic; font-size:0.7rem;">
-          “Quando a educação não é libertadora, o sonho do opresso é ser o opressor.
+        <span class="frase-freire">
+          “Quando a educação não é libertadora, o sonho do oprimido é ser o opressor.
           Ensinar não é transferir conhecimento, mas criar as possibilidades para a sua própria
           produção ou a sua construção. O educador se eterniza em cada ser que educa.
           A educação é um ato de amor, por isso, um ato de coragem.” – Paulo Freire
@@ -59,142 +84,162 @@
 
     <div class="subtitulo">Acompanhamento da Hora Atividade do(a) Professor(a)</div>
 
-    <div class="linha-info">
-      <span><strong>Professor(a):</strong> <span id="campoProfessorTexto"></span></span>
-    </div>
-    <div class="linha-info">
-      <span><strong>Turma:</strong> <span id="campoTurmaTexto"></span></span>
-      <span><strong>Curso:</strong> <span id="campoCursoTexto"></span></span>
-    </div>
-    <div class="linha-info">
-      <span><strong>Componente curricular:</strong> <span id="campoComponenteTexto"></span></span>
-    </div>
-    <div class="linha-info">
-      <span><strong>Período:</strong> <span id="campoTrimestreTexto"></span></span>
-    </div>
+    <section class="bloco-info">
+      <div class="linha-info">
+        <span><strong>Professor(a):</strong> <span id="campoProfessorTexto"></span></span>
+      </div>
+      <div class="linha-info">
+        <span><strong>Turma:</strong> <span id="campoTurmaTexto"></span></span>
+        <span><strong>Curso:</strong> <span id="campoCursoTexto"></span></span>
+      </div>
+      <div class="linha-info">
+        <span><strong>Componente curricular:</strong> <span id="campoComponenteTexto"></span></span>
+      </div>
+      <div class="linha-info">
+        <span><strong>Período:</strong> <span id="campoTrimestreTexto"></span></span>
+      </div>
+    </section>
 
     <!-- SEÇÃO METODOLOGIA -->
-    <div class="secao-titulo">Metodologia didático-pedagógica</div>
-    <div class="secao-titulo" style="font-weight:600; margin-top:4px;">Metodologias de trabalho utilizadas em sala de aula:</div>
+    <section class="bloco">
+      <h2 class="secao-titulo">Metodologia didático-pedagógica</h2>
+      <h3 class="secao-subtitulo">Metodologias de trabalho utilizadas em sala de aula</h3>
 
-    <div class="checkbox-list">
-      <label><input type="checkbox" class="chk-metodo" value="Trabalhos transdisciplinares e interdisciplinares"> Trabalhos transdisciplinares e interdisciplinares</label>
-      <label><input type="checkbox" class="chk-metodo" value="Áudio visuais"> Áudio visuais</label>
-      <label><input type="checkbox" class="chk-metodo" value="Cadernos e lousa"> Cadernos e lousa</label>
-      <label><input type="checkbox" class="chk-metodo" value="Material adaptado para alunos de SRM e PMA"> Material adaptado para alunos de SRM e PMA</label>
-      <label><input type="checkbox" class="chk-metodo" value="Livro didático"> Livro didático</label>
-      <label><input type="checkbox" class="chk-metodo" value="Pesquisa-ação (Laboratório, Biblioteca, Coleções...)"> Pesquisa – ação (Laboratório, Livro Didático, Biblioteca, Coleções...)</label>
-    </div>
+      <div class="checkbox-list">
+        <label><input type="checkbox" class="chk-metodo" value="Trabalhos transdisciplinares e interdisciplinares"> Trabalhos transdisciplinares e interdisciplinares</label>
+        <label><input type="checkbox" class="chk-metodo" value="Áudio visuais"> Áudio visuais</label>
+        <label><input type="checkbox" class="chk-metodo" value="Cadernos e lousa"> Cadernos e lousa</label>
+        <label><input type="checkbox" class="chk-metodo" value="Material adaptado para alunos de SRM e PMA"> Material adaptado para alunos de SRM e PMA</label>
+        <label><input type="checkbox" class="chk-metodo" value="Livro didático"> Livro didático</label>
+        <label><input type="checkbox" class="chk-metodo" value="Pesquisa-ação (Laboratório, Biblioteca, Coleções...)"> Pesquisa – ação (Laboratório, Livro Didático, Biblioteca, Coleções...)</label>
+      </div>
 
-    <div class="linha-info" style="margin-top:6px;">
-      Outro, explique:
-    </div>
-    <textarea id="outrosMetodos" class="texto-longo"></textarea>
+      <div class="linha-info espacamento-pequeno">
+        Outro, explique:
+      </div>
+      <textarea id="outrosMetodos" class="texto-longo"></textarea>
 
-    <div class="linha-info" style="margin-top:6px;">
-      Metodologias ativas. Quais?
-    </div>
-    <textarea id="metodologiasAtivas" class="texto-longo"></textarea>
+      <div class="linha-info espacamento-pequeno">
+        Metodologias ativas. Quais?
+      </div>
+      <textarea id="metodologiasAtivas" class="texto-longo"></textarea>
+    </section>
 
     <!-- LISTA DE ALUNOS -->
-    <div class="secao-titulo">Lista de alunos da turma</div>
-    <table class="lista-alunos">
-      <thead>
-      <tr>
-        <th style="width:35px;">Nº</th>
-        <th>Nome do aluno</th>
-        <th style="width:120px;">Situação</th>
-        <th>Observações / Recuperação</th>
-      </tr>
-      </thead>
-      <tbody id="tbodyAlunos">
-      <!-- preenchido via JS -->
-      </tbody>
-    </table>
+    <section class="bloco">
+      <h2 class="secao-titulo">Lista de alunos da turma</h2>
+      <table class="lista-alunos">
+        <thead>
+        <tr>
+          <th style="width:35px;">Nº</th>
+          <th>Nome do aluno</th>
+          <th style="width:120px;">Situação</th>
+          <th>Observações / Recuperação</th>
+        </tr>
+        </thead>
+        <tbody id="tbodyAlunos">
+        <!-- preenchido via JS -->
+        </tbody>
+      </table>
+    </section>
 
     <!-- PÁGINA 2 - PRINCIPAIS QUESTÕES -->
-    <div class="secao-titulo">Alunos que não respondem às metodologias. Quais e por quê?</div>
-    <textarea id="naoRespondem" class="texto-longo"></textarea>
+    <section class="bloco">
+      <h2 class="secao-titulo">Participação e engajamento</h2>
 
-    <div class="linha-info" style="margin-top:6px;">Sugestões:</div>
-    <textarea id="sugestoes" class="texto-longo"></textarea>
+      <div class="linha-info">Alunos que não respondem às metodologias. Quais e por quê?</div>
+      <textarea id="naoRespondem" class="texto-longo"></textarea>
 
-    <div class="secao-titulo" style="margin-top:10px;">
-      O que foi feito para que as notas desses alunos elevassem neste período?
-    </div>
-    <div class="checkbox-list">
-      <label><input type="checkbox" class="chk-acao" value="Entrega de boletins e conversa com os pais">
-        Entrega de boletins e conversa com os pais
-      </label>
-      <label><input type="checkbox" class="chk-acao" value="Encaminhamento para o PMA">
-        Encaminhamento para o PMA
-      </label>
-      <label><input type="checkbox" class="chk-acao" value="Material adaptado">
-        Material adaptado
-      </label>
-    </div>
-    <div class="linha-info" style="margin-top:4px;">
-      Outras ferramentas de aprendizagem foram utilizadas? Quais?
-    </div>
-    <textarea id="ferramentasAprendizagem" class="texto-longo"></textarea>
+      <div class="linha-info espacamento-pequeno">Sugestões:</div>
+      <textarea id="sugestoes" class="texto-longo"></textarea>
+
+      <h3 class="secao-subtitulo espacamento-maior">
+        O que foi feito para que as notas desses alunos elevassem neste período?
+      </h3>
+      <div class="checkbox-list">
+        <label><input type="checkbox" class="chk-acao" value="Entrega de boletins e conversa com os pais">
+          Entrega de boletins e conversa com os pais
+        </label>
+        <label><input type="checkbox" class="chk-acao" value="Encaminhamento para o PMA">
+          Encaminhamento para o PMA
+        </label>
+        <label><input type="checkbox" class="chk-acao" value="Material adaptado">
+          Material adaptado
+        </label>
+      </div>
+
+      <div class="linha-info espacamento-pequeno">
+        Outras ferramentas de aprendizagem foram utilizadas? Quais?
+      </div>
+      <textarea id="ferramentasAprendizagem" class="texto-longo"></textarea>
+    </section>
 
     <!-- INSTRUMENTOS DE AVALIAÇÃO -->
-    <div class="secao-titulo">Instrumentos de avaliação</div>
-    <div class="linha-info"><strong>Avaliações:</strong> Somativa, Diagnóstica, Formativa.</div>
-    <div class="checkbox-list">
-      <label><input type="checkbox" class="chk-avaliacao" value="Descritiva"> Descritiva</label>
-      <label><input type="checkbox" class="chk-avaliacao" value="Objetiva"> Objetiva</label>
-      <label><input type="checkbox" class="chk-avaliacao" value="Dissertativa"> Dissertativa</label>
-      <label><input type="checkbox" class="chk-avaliacao" value="Trabalhos"> Trabalhos</label>
-      <label><input type="checkbox" class="chk-avaliacao" value="Questões de múltipla escolha"> Questões de múltipla escolha</label>
-      <label><input type="checkbox" class="chk-avaliacao" value="Avaliação oral"> Avaliação oral</label>
-      <label><input type="checkbox" class="chk-avaliacao" value="Atividades lúdicas"> Atividades lúdicas (desenhos, gravuras, recortes...)</label>
-    </div>
-    <div class="linha-info" style="margin-top:4px;">
-      Explique:
-    </div>
-    <textarea id="explicaAvaliacao" class="texto-longo"></textarea>
+    <section class="bloco">
+      <h2 class="secao-titulo">Instrumentos de avaliação</h2>
+      <div class="linha-info">
+        <strong>Avaliações:</strong> Somativa, Diagnóstica, Formativa.
+      </div>
+      <div class="checkbox-list">
+        <label><input type="checkbox" class="chk-avaliacao" value="Descritiva"> Descritiva</label>
+        <label><input type="checkbox" class="chk-avaliacao" value="Objetiva"> Objetiva</label>
+        <label><input type="checkbox" class="chk-avaliacao" value="Dissertativa"> Dissertativa</label>
+        <label><input type="checkbox" class="chk-avaliacao" value="Trabalhos"> Trabalhos</label>
+        <label><input type="checkbox" class="chk-avaliacao" value="Questões de múltipla escolha"> Questões de múltipla escolha</label>
+        <label><input type="checkbox" class="chk-avaliacao" value="Avaliação oral"> Avaliação oral</label>
+        <label><input type="checkbox" class="chk-avaliacao" value="Atividades lúdicas"> Atividades lúdicas (desenhos, gravuras, recortes...)</label>
+      </div>
+
+      <div class="linha-info espacamento-pequeno">
+        Explique:
+      </div>
+      <textarea id="explicaAvaliacao" class="texto-longo"></textarea>
+    </section>
 
     <!-- PÁGINA 3 - RECUPERAÇÃO / SE LIGA -->
-    <div class="secao-titulo" style="margin-top:10px;">
-      Quanto à recuperação do aluno, quais proposições têm sido utilizadas?
-    </div>
-    <div class="checkbox-list">
-      <label><input type="checkbox" class="chk-recuperacao" value="Recuperação de conteúdo e nova avaliação">
-        Recuperação de conteúdo e avaliação
-      </label>
-      <label><input type="checkbox" class="chk-recuperacao" value="Reaplicação da mesma prova sem recuperação de conteúdo">
-        Repete a mesma prova sem recuperação de conteúdo
-      </label>
-      <label><input type="checkbox" class="chk-recuperacao" value="Outro trabalho de recuperação">
-        Dá outro trabalho
-      </label>
-      <label><input type="checkbox" class="chk-recuperacao" value="Oportuniza avaliação a aluno que faltou">
-        Oportuniza o aluno que faltou outra avaliação
-      </label>
-      <label>Outro:
-        <input type="text" id="outroRecuperacao">
-      </label>
-    </div>
+    <section class="bloco">
+      <h2 class="secao-titulo">Recuperação e Se Liga</h2>
 
-    <div class="secao-titulo" style="margin-top:10px;">Socializando / Se Liga</div>
-    <textarea id="socializando" class="texto-longo"
-              placeholder="Aqui você pode explicar como está a situação de recuperação e Se Liga."></textarea>
+      <div class="linha-info">
+        Quanto à recuperação do aluno, quais proposições têm sido utilizadas?
+      </div>
+      <div class="checkbox-list">
+        <label><input type="checkbox" class="chk-recuperacao" value="Recuperação de conteúdo e nova avaliação">
+          Recuperação de conteúdo e avaliação
+        </label>
+        <label><input type="checkbox" class="chk-recuperacao" value="Reaplicação da mesma prova sem recuperação de conteúdo">
+          Repete a mesma prova sem recuperação de conteúdo
+        </label>
+        <label><input type="checkbox" class="chk-recuperacao" value="Outro trabalho de recuperação">
+          Dá outro trabalho
+        </label>
+        <label><input type="checkbox" class="chk-recuperacao" value="Oportuniza avaliação a aluno que faltou">
+          Oportuniza o aluno que faltou outra avaliação
+        </label>
+        <label>Outro:
+          <input type="text" id="outroRecuperacao">
+        </label>
+      </div>
 
-    <div class="secao-titulo" style="margin-top:10px;">
-      Quais suas angústias quanto ao aprendizado do aluno que não alcançou a média, que suas notas estão muito baixas?
-      O que ainda pode ser feito?
-    </div>
-    <textarea id="angustias" class="texto-longo"></textarea>
+      <div class="linha-info espacamento-pequeno">Socializando / Se Liga</div>
+      <textarea id="socializando" class="texto-longo"
+                placeholder="Aqui você pode explicar como está a situação de recuperação e Se Liga."></textarea>
 
-    <div class="secao-titulo" style="margin-top:10px;">Recursos didáticos</div>
-    <textarea id="recursosDidaticos" class="texto-longo"
-              placeholder="Artigos, apostilas, livros, softwares, trabalhos, apresentações, filmes, Educatron, Mentimeter, Jamboards, Forms, plataformas etc."></textarea>
+      <div class="linha-info espacamento-pequeno">
+        Quais suas angústias quanto ao aprendizado do aluno que não alcançou a média, que suas notas estão muito baixas?
+        O que ainda pode ser feito?
+      </div>
+      <textarea id="angustias" class="texto-longo"></textarea>
+
+      <div class="linha-info espacamento-pequeno">Recursos didáticos</div>
+      <textarea id="recursosDidaticos" class="texto-longo"
+                placeholder="Artigos, apostilas, livros, softwares, trabalhos, apresentações, filmes, Educatron, Mentimeter, Jamboards, Forms, plataformas etc."></textarea>
+    </section>
 
     <!-- QUEBRA PARA A PÁGINA FINAL (assinaturas + data) -->
     <div class="quebra-pagina"></div>
 
-    <div class="pagina-final">
+    <section class="pagina-final">
       <div class="assinaturas">
         <div class="linha">
           PEDAGOGA
@@ -202,21 +247,19 @@
 
         <div class="linha linha-prof">
           <!-- assinatura com fundo transparente -->
-          <img src="assinatura-prof.png" alt="Assinatura do(a) professor(a)" class="img-assinatura">
+          <img src="AssinaturaLeandro.png" alt="Assinatura do(a) professor(a)" class="img-assinatura">
           <span>PROFESSOR(A)</span>
         </div>
       </div>
 
-      <div class="rodape-data">
-        <!-- preenchido via JS com a data atual -->
-      </div>
+      <div class="rodape-data"></div>
 
       <div class="nota-explicativa">
         Observação: este modelo digital foi adaptado do formulário físico de acompanhamento da Hora Atividade do(a) professor(a),
         mantendo a mesma estrutura para fins de registro pedagógico.
       </div>
-    </div>
-  </div>
+    </section>
+  </main>
 </div>
 
 <script src="script.js"></script>

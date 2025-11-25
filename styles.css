@@ -372,15 +372,15 @@ table.lista-alunos input {
 /* ASSINATURAS */
 .assinaturas {
   display: flex;
-  justify-content: space-between;
+  justify-content: space-around; /* mais simétrico que space-between */
   font-size: 0.85rem;
 }
 
 .assinaturas .linha {
   border-top: 1px solid #111827;
-  width: 40%;
+  width: 45%;             /* as duas linhas com mesma largura e espaço central igual */
   text-align: center;
-  padding-top: 40px;   /* espaço para o texto */
+  padding-top: 40px;      /* espaço para o texto */
   position: relative;
 }
 
@@ -389,13 +389,18 @@ table.lista-alunos input {
   padding-top: 40px;
 }
 
+/* ASSINATURA: deitada em cima da linha, centralizada */
 .img-assinatura {
   position: absolute;
   left: 50%;
   top: 0;
-  transform: translate(-50%, -95%);  /* sobe a assinatura para ficar em cima da linha */
-  max-height: 55px;
+  transform-origin: center center;
+  /* gira 90º e posiciona sobre a linha */
+  transform: translate(-50%, -60%) rotate(-90deg);
+  height: 70px;        /* controla o tamanho da assinatura */
+  width: auto;
   pointer-events: none;
+  display: block;
 }
 
 .rodape-data {

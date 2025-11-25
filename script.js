@@ -82,29 +82,40 @@ const dadosTurmas = {
 };
 
 // ------------------------------
-// OPÇÕES PADRÃO DOS SELECTS
+// OPÇÕES PADRÃO DOS SELECTS (melhoradas)
 // ------------------------------
+
+// Situação do aluno na disciplina
 const opcoesSituacao = [
   "",
-  "Regular",
-  "Recuperação",
+  "Aprovado no período",
+  "Em recuperação (nota)",
   "Se Liga",
-  "PMA",
-  "Transf.",
-  "Registro duplicado",
-  "Exc. erro / ajuste"
+  "Acompanhamento PMA",
+  "Acompanhamento SRM",
+  "Retido por frequência",
+  "Transferido",
+  "Trancado / cancelado",
+  "Matrícula ajustada (erro de lançamento)",
+  "Registro duplicado"
 ];
 
+// Observações / tipo de intervenção
 const opcoesObservacao = [
   "",
-  "Bom desempenho",
-  "Participa bem",
+  "Bom desempenho e participação",
+  "Participa bem, mas apresenta oscilações",
   "Faltas frequentes",
-  "Pouco engajamento",
-  "Dificuldade de conteúdo",
-  "Precisa acompanhamento",
-  "Aluno transferido"
+  "Não entrega atividades / trabalhos",
+  "Pouco engajamento em sala",
+  "Dificuldade de compreensão de conteúdo",
+  "Necessita acompanhamento individualizado",
+  "Encaminhado ao PMA",
+  "Encaminhado à SRM",
+  "Responsáveis convocados / contatados",
+  "Aluno transferido no período"
 ];
+
 
 // ------------------------------
 // CACHE DE ELEMENTOS

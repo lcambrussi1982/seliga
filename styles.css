@@ -395,14 +395,13 @@ table.lista-alunos input {
   left: 50%;
   top: 0;
   transform-origin: center center;
-  /* gira pro outro lado e posiciona sobre a linha */
-  transform: translate(-50%, -55%) rotate(-90deg);
-  height: 170px;   /* tamanho da assinatura */
+  /* gira 45° pro lado certo e posiciona sobre a linha */
+  transform: translate(-50%, -55%) rotate(45deg);
+  height: 110px;   /* aumenta o tamanho da assinatura */
   width: auto;
   pointer-events: none;
   display: block;
 }
-
 
 
 .rodape-data {

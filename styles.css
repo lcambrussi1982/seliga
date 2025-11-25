@@ -418,6 +418,237 @@ table.lista-alunos input {
   text-align: center;
 }
 
+/* ÁREA QUE VAI VIRAR PDF */
+.pagina-a4 {
+  background: var(--cor-pagina);
+  border-radius: 18px;
+  border: 1px solid rgba(148, 163, 184, 0.55);
+  padding: 18px 22px 24px;
+  margin: 0 auto 30px;
+  /* largura menor pra nunca estourar o A4 */
+  width: 180mm;
+  max-width: 100%;
+  min-height: 260mm;
+  position: relative;
+  color: #111827;
+  font-size: 12px;
+  line-height: 1.35;
+  box-shadow:
+    0 24px 60px rgba(15, 23, 42, 0.8),
+    0 0 0 1px rgba(148, 163, 184, 0.35);
+}
+
+/* HEADER DO PDF */
+.cabecalho {
+  display: flex;
+  gap: 16px;
+  align-items: center;
+  border-bottom: 1px solid #e5e7eb;
+  padding-bottom: 8px;
+  margin-bottom: 8px;
+}
+
+.cabecalho-logo {
+  width: 70px;
+}
+
+.cabecalho-texto {
+  flex: 1;
+  text-align: center;
+  font-size: 11px;
+  color: #374151;
+}
+
+.cabecalho-texto strong {
+  display: block;
+  font-weight: 700;
+}
+
+.frase-freire {
+  font-style: italic;
+  font-size: 10px;
+  display: inline-block;
+  margin-top: 4px;
+}
+
+.subtitulo {
+  text-align: center;
+  font-weight: 700;
+  margin: 6px 0 10px;
+  font-size: 12px;
+  text-transform: uppercase;
+  letter-spacing: 0.08em;
+}
+
+/* BLOCOS INTERNOS */
+.bloco-info {
+  font-size: 12px;
+  margin-bottom: 8px;
+}
+
+.linha-info {
+  margin-bottom: 3px;
+}
+
+.linha-info span {
+  display: inline-block;
+  margin-right: 14px;
+}
+
+.bloco {
+  border-top: 1px solid #e5e7eb;
+  padding-top: 8px;
+  margin-top: 8px;
+}
+
+.secao-titulo {
+  font-size: 12px;
+  font-weight: 700;
+  margin: 4px 0 4px;
+  text-transform: uppercase;
+  letter-spacing: 0.04em;
+}
+
+.secao-subtitulo {
+  font-size: 11.5px;
+  font-weight: 600;
+  margin: 2px 0 6px;
+}
+
+.espacamento-pequeno {
+  margin-top: 4px;
+}
+
+.espacamento-maior {
+  margin-top: 8px;
+}
+
+.checkbox-list {
+  margin-top: 2px;
+  margin-bottom: 4px;
+}
+
+.checkbox-list label {
+  display: block;
+  font-size: 11px;
+  margin-bottom: 2px;
+}
+
+.checkbox-list input[type="checkbox"] {
+  margin-right: 4px;
+}
+
+.texto-longo {
+  width: 100%;
+  min-height: 48px;
+  padding: 5px 7px;
+  border-radius: 6px;
+  border: 1px solid #d1d5db;
+  font-size: 11.5px;
+  resize: vertical;
+  font-family: inherit;
+}
+
+/* TABELA ALUNOS */
+table.lista-alunos {
+  width: 100%;
+  border-collapse: collapse;
+  margin-top: 6px;
+  font-size: 11px;
+}
+
+table.lista-alunos th,
+table.lista-alunos td {
+  border: 1px solid #d1d5db;
+  padding: 3px 4px;
+}
+
+table.lista-alunos th {
+  background: #f3f4f6;
+  font-weight: 700;
+}
+
+table.lista-alunos td:nth-child(1) {
+  text-align: center;
+  width: 28px;
+}
+
+table.lista-alunos td:nth-child(3) {
+  width: 125px;
+}
+
+table.lista-alunos select.select-tabela {
+  width: 100%;
+  border: none;
+  padding: 1px 2px;
+  font-size: 11px;
+  font-family: inherit;
+  background: transparent;
+}
+
+/* QUEBRA MANUAL DE PÁGINA */
+.quebra-pagina {
+  page-break-before: always;
+  margin-top: 10px;
+}
+
+/* PÁGINA FINAL */
+.pagina-final {
+  min-height: 230mm;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  padding-top: 40mm;
+}
+
+/* ASSINATURAS */
+.assinaturas {
+  display: flex;
+  justify-content: space-between;
+  gap: 40px;
+  font-size: 11.5px;
+}
+
+.assinaturas .linha {
+  border-top: 1px solid #111827;
+  width: 45%;
+  text-align: center;
+  padding-top: 36px;
+  position: relative;
+}
+
+/* linha do professor com assinatura digital */
+.linha-prof {
+  padding-top: 36px;
+}
+
+/* ASSINATURA: deitada, centralizada em cima da linha */
+.img-assinatura {
+  position: absolute;
+  left: 50%;
+  top: 0;
+  transform-origin: center center;
+  /* se ainda ficar invertida, troque 90deg por 270deg */
+  transform: translate(-50%, -60%) rotate(90deg);
+  height: 120px;
+  width: auto;
+  pointer-events: none;
+  display: block;
+}
+
+.rodape-data {
+  margin-top: 18px;
+  font-size: 11.5px;
+  text-align: center;
+}
+
+.nota-explicativa {
+  font-size: 10px;
+  margin-top: 8px;
+  color: #6b7280;
+  text-align: center;
+}
+
 /* MODO IMPRESSÃO / PDF */
 @media print {
   body {
@@ -438,12 +669,4 @@ table.lista-alunos input {
     box-shadow: none;
     width: 180mm;
   }
-}
-table.lista-alunos select.select-tabela {
-  width: 100%;
-  border: none;
-  padding: 2px 3px;
-  font-size: 0.78rem;
-  font-family: inherit;
-  background: transparent;
 }

@@ -1,4 +1,6 @@
+// ------------------------------
 // DADOS DAS TURMAS E ALUNOS
+// ------------------------------
 const dadosTurmas = {
   "3º B - Técnico em Desenvolvimento de Sistemas": {
     curso: "Técnico em Desenvolvimento de Sistemas",
@@ -79,10 +81,46 @@ const dadosTurmas = {
   }
 };
 
+// ------------------------------
+// CACHE DE ELEMENTOS
+// ------------------------------
 const turmaSelect = document.getElementById('turmaSelect');
 const componenteSelect = document.getElementById('componenteSelect');
 const tbodyAlunos = document.getElementById('tbodyAlunos');
+const campoProfessor = document.getElementById('professor');
+const campoTrimestre = document.getElementById('trimestre');
+const campoProfessorTexto = document.getElementById('campoProfessorTexto');
+const campoTurmaTexto = document.getElementById('campoTurmaTexto');
+const campoCursoTexto = document.getElementById('campoCursoTexto');
+const campoComponenteTexto = document.getElementById('campoComponenteTexto');
+const campoTrimestreTexto = document.getElementById('campoTrimestreTexto');
+const rodapeData = document.querySelector('.rodape-data');
 
+// ------------------------------
+// FUNÇÕES AUXILIARES
+// ------------------------------
+
+// Data por extenso: "25 de novembro de 2025"
+function formatarDataPorExtenso(data = new Date()) {
+  const meses = [
+    'janeiro', 'fevereiro', 'março', 'abril', 'maio', 'junho',
+    'julho', 'agosto', 'setembro', 'outubro', 'novembro', 'dezembro'
+  ];
+  const dia = String(data.getDate()).padStart(2, '0');
+  const mes = meses[data.getMonth()];
+  const ano = data.getFullYear();
+  return `${dia} de ${mes} de ${ano}`;
+}
+
+// Atualiza o texto "Palmas – PR, ___ de ___ de ___"
+function atualizarRodapeData() {
+  const textoData = formatarDataPorExtenso();
+  if (rodapeData) {
+    rodapeData.textContent = `Palmas – PR, ${textoData}.`;
+  }
+}
+
+// Preenche o select das turmas
 function preencherSelectTurmas() {
   turmaSelect.innerHTML = "";
   Object.keys(dadosTurmas).forEach(turmaNome => {
@@ -93,12 +131,13 @@ function preencherSelectTurmas() {
   });
 }
 
+// Atualiza componentes e tabela de alunos da turma selecionada
 function atualizarComponentesETabela() {
   const turmaNome = turmaSelect.value;
   const turma = dadosTurmas[turmaNome];
   if (!turma) return;
 
-  // componentes
+  // Componentes curriculares
   componenteSelect.innerHTML = "";
   turma.componentes.forEach(comp => {
     const opt = document.createElement('option');
@@ -107,7 +146,7 @@ function atualizarComponentesETabela() {
     componenteSelect.appendChild(opt);
   });
 
-  // tabela de alunos
+  // Tabela de alunos
   tbodyAlunos.innerHTML = "";
   turma.alunos.forEach((aluno, index) => {
     const tr = document.createElement('tr');
@@ -139,37 +178,45 @@ function atualizarComponentesETabela() {
   atualizarCabecalhoTexto();
 }
 
+// Atualiza os textos do cabeçalho (professor, turma, curso, etc.)
 function atualizarCabecalhoTexto() {
-  document.getElementById('campoProfessorTexto').textContent =
-    document.getElementById('professor').value;
-  document.getElementById('campoTurmaTexto').textContent = turmaSelect.value;
+  campoProfessorTexto.textContent = campoProfessor.value;
+  campoTurmaTexto.textContent = turmaSelect.value;
+
   const turma = dadosTurmas[turmaSelect.value];
-  document.getElementById('campoCursoTexto').textContent = turma ? turma.curso : "";
-  document.getElementById('campoComponenteTexto').textContent = componenteSelect.value;
-  document.getElementById('campoTrimestreTexto').textContent =
-    document.getElementById('trimestre').value;
+  campoCursoTexto.textContent = turma ? turma.curso : "";
+  campoComponenteTexto.textContent = componenteSelect.value;
+  campoTrimestreTexto.textContent = campoTrimestre.value;
 }
 
+// Gera o PDF com html2pdf
 function gerarPDF() {
   atualizarCabecalhoTexto();
+  atualizarRodapeData(); // garante que a data está atualizada
 
   const turmaNome = turmaSelect.value || "turma";
   const componente = componenteSelect.value || "disciplina";
-  const professor = (document.getElementById('professor').value || "professor")
-    .replace(/\s+/g, "_");
+  const professor = (campoProfessor.value || "professor").replace(/\s+/g, "_");
+
+  const hojeISO = new Date().toISOString().slice(0, 10); // AAAA-MM-DD
 
   const opt = {
     margin: 10,
-    filename: `relatorio_${turmaNome.replace(/\s+/g, "_")}_${componente.replace(/\s+/g, "_")}_${professor}.pdf`,
+    filename: `relatorio_${turmaNome.replace(/\s+/g, "_")}_${componente.replace(/\s+/g, "_")}_${professor}_${hojeISO}.pdf`,
     image: { type: 'jpeg', quality: 0.98 },
     html2canvas: { scale: 2, useCORS: true },
     jsPDF: { unit: 'mm', format: 'a4', orientation: 'portrait' }
   };
 
   const elemento = document.getElementById('relatorio');
+  if (typeof html2pdf === "undefined") {
+    alert("Biblioteca html2pdf não carregada. Verifique a conexão ou o script CDN.");
+    return;
+  }
   html2pdf().set(opt).from(elemento).save();
 }
 
+// Preenche automaticamente os textos de Se Liga (caso não tenha ninguém)
 function preencherTextoSeLiga() {
   const turmaNome = turmaSelect.value;
   const componente = componenteSelect.value;
@@ -186,14 +233,19 @@ function preencherTextoSeLiga() {
     "de acompanhamento, revisões de conteúdo e atividades de reforço para garantir a aprendizagem de todos.";
 }
 
-// Eventos
+// ------------------------------
+// EVENTOS
+// ------------------------------
 turmaSelect.addEventListener('change', atualizarComponentesETabela);
 componenteSelect.addEventListener('change', atualizarCabecalhoTexto);
-document.getElementById('professor').addEventListener('input', atualizarCabecalhoTexto);
-document.getElementById('trimestre').addEventListener('input', atualizarCabecalhoTexto);
+campoProfessor.addEventListener('input', atualizarCabecalhoTexto);
+campoTrimestre.addEventListener('input', atualizarCabecalhoTexto);
 document.getElementById('btnGerarPdf').addEventListener('click', gerarPDF);
 document.getElementById('btnAutoSeLiga').addEventListener('click', preencherTextoSeLiga);
 
-// Inicialização
+// ------------------------------
+// INICIALIZAÇÃO
+// ------------------------------
 preencherSelectTurmas();
 atualizarComponentesETabela();
+atualizarRodapeData();  // já coloca a data atual ao carregar
